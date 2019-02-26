@@ -42,7 +42,7 @@ public class RideType {
 	/**
 	 * One-to-many relationship with <code>Ride</code>s
 	 */
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "rideType")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "type")
 	private List<Ride> rides;
 
 	/**
