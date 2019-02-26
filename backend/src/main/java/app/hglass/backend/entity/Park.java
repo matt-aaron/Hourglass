@@ -1,9 +1,7 @@
 package app.hglass.backend.entity;
 
 import app.hglass.backend.model.Location;
-import app.hglass.backend.view.Views;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;
 import java.util.List;
@@ -47,7 +45,7 @@ public class Park {
 	 * One-to-many relationship with <code>RideType</code>s
 	 */
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "park")
-	@JsonView(Views.ParkDetailed.class)
+	@JsonIgnore
 	private List<RideType> rideTypes;
 
 	/**
