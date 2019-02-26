@@ -1,7 +1,9 @@
 package app.hglass.backend.entity;
 
 import app.hglass.backend.model.Location;
+import app.hglass.backend.view.Views;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,7 +13,7 @@ import java.util.List;
  * information from the database together, such as rides and wait times.
  *
  * @author Matt Aaron
- * @version 0.0.2
+ * @version 0.0.3
  */
 @Entity
 @Table(name = "parks")
@@ -45,6 +47,7 @@ public class Park {
 	 * One-to-many relationship with <code>RideType</code>s
 	 */
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "park")
+	@JsonView(Views.ParkDetailed.class)
 	private List<RideType> rideTypes;
 
 	/**
