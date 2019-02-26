@@ -8,7 +8,7 @@ import java.util.List;
  * tie information from the database together.
  *
  * @author Matt Aaron
- * @version 0.0.1
+ * @version 0.0.2
  */
 @Entity
 @Table(name = "operators")
@@ -30,4 +30,31 @@ public class Operator {
 	 */
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "operator")
 	private List<Park> parks;
+
+	/**
+	 * Get unique identifier
+	 *
+	 * @return unique identifier
+	 */
+	public int getId() {
+		return id;
+	}
+
+	/**
+	 * Get operator name
+	 *
+	 * @return operator name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * Get list of parks run by operator
+	 *
+	 * @return list of parks
+	 */
+	public List<Park> getParks() {
+		return parks;
+	}
 }
