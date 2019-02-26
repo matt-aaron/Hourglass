@@ -97,7 +97,9 @@ ALTER SEQUENCE public.park_schedules_id_seq OWNED BY public.park_schedules.id;
 CREATE TABLE public.parks (
     id integer NOT NULL,
     name character varying(50) NOT NULL,
-    operator_id integer NOT NULL
+    operator_id integer NOT NULL,
+    latitude double precision NOT NULL,
+    longitude double precision
 );
 
 
@@ -298,7 +300,7 @@ COPY public.park_schedules (id, park_id, is_open, start, "end") FROM stdin;
 -- Data for Name: parks; Type: TABLE DATA; Schema: public; Owner: api
 --
 
-COPY public.parks (id, name, operator_id) FROM stdin;
+COPY public.parks (id, name, operator_id, latitude, longitude) FROM stdin;
 \.
 
 
