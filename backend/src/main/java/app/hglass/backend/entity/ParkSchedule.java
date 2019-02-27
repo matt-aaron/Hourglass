@@ -20,12 +20,14 @@ public class ParkSchedule {
 	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonIgnore
 	private int id;
 
 	/**
 	 * Many-to-one relationship to <code>Park</code>
 	 */
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonIgnore
 	private Park park;
 
 	/**
