@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * Implements a REST controller to provide ride type endpoints to the API.
+ * Implements a REST controller providing ride type endpoints.
  *
  * @author Matt Aaron
  * @version 0.0.1
