@@ -11,7 +11,7 @@ import java.util.List;
  * information from the database together, such as rides and wait times.
  *
  * @author Matt Aaron
- * @version 0.0.3
+ * @version 0.0.4
  */
 @Entity
 @Table(name = "parks")
@@ -22,6 +22,11 @@ public class Park {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+
+	/**
+	 * TE2 platform identifier
+	 */
+	private String platformId;
 
 	/**
 	 * Park name
@@ -55,6 +60,15 @@ public class Park {
 	 */
 	public int getId() {
 		return id;
+	}
+
+	/**
+	 * Get TE2 platform identifier
+	 *
+	 * @return TE2 platform identifier
+	 */
+	public String getPlatformId() {
+		return platformId;
 	}
 
 	/**
