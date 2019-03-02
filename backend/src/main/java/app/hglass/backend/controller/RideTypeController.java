@@ -48,7 +48,7 @@ public class RideTypeController {
 	@GetMapping("/park/{id}/rides")
 	public List<RideType> getRideTypesById(@PathVariable(value = "id") int id) {
 		Park park = parkRepository.findById(id)
-				.orElseThrow(() -> new RuntimeException());
+				.orElseThrow(() -> new RuntimeException("Park not found. Park ID: " + id));
 
 		List<RideType> rideTypes = rideTypeRepository.findByPark(park);
 		for (RideType rideType : rideTypes) {
