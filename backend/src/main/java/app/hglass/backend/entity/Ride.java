@@ -8,7 +8,7 @@ import javax.persistence.*;
  * Implements an entity class representing rides from the database.
  *
  * @author Matt Aaron
- * @version 0.0.2
+ * @version 0.0.3
  */
 @Entity
 @Table(name = "rides")
@@ -139,5 +139,14 @@ public class Ride {
 	 */
 	public RideStatus getStatus() {
 		return status;
+	}
+
+	/**
+	 * Set <code>RideStatus</code>
+	 *
+	 * @param status new <code>RideStatus</code>
+	 */
+	public void setStatus(RideStatus status) {
+		this.status = status;
 	}
 }

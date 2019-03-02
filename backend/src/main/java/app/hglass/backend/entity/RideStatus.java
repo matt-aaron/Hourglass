@@ -9,7 +9,7 @@ import java.util.Date;
  * Implements an entity class representing the status entries for a ride in the database.
  *
  * @author Matt Aaron
- * @version 0.0.3
+ * @version 0.0.4
  */
 @Entity
 @Table(name = "ride_statuses")
@@ -19,12 +19,14 @@ public class RideStatus {
 	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonIgnore
 	private int id;
 
 	/**
 	 * Many-to-one relationship with <code>Ride</code>
 	 */
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonIgnore
 	private Ride ride;
 
 	/**
