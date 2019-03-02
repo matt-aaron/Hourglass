@@ -44,7 +44,6 @@ public class ParkScheduleController {
 				.orElseThrow(() -> new RuntimeException("Park not found. Park ID: " + id));
 
 		Date now = new Date();
-
 		Optional<ParkSchedule> schedule = parkScheduleRepository.findByParkAndStartBeforeAndEndAfter(park, now, now);
 		if (schedule.isPresent()) {
 			return schedule.get();
