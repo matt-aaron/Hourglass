@@ -9,7 +9,7 @@ import java.util.Date;
  * Implements an entity class representing the status entries for a ride in the database.
  *
  * @author Matt Aaron
- * @version 0.0.2
+ * @version 0.0.3
  */
 @Entity
 @Table(name = "ride_statuses")
@@ -48,7 +48,7 @@ public class RideStatus {
 	 */
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonIgnore
-	private Date createdAt;
+	private Date createdAt = new Date();
 
 	/**
 	 * Get unique identifier
