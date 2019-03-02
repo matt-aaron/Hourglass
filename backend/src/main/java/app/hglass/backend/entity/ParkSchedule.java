@@ -75,12 +75,30 @@ public class ParkSchedule {
 	}
 
 	/**
+	 * Set <code>Park</code>
+	 *
+	 * @param park new <code>Park</code>
+	 */
+	public void setPark(Park park) {
+		this.park = park;
+	}
+
+	/**
 	 * Get operating status
 	 *
 	 * @return true if open, false if closed
 	 */
 	public boolean isOpen() {
 		return isOpen;
+	}
+
+	/**
+	 * Set operating status
+	 *
+	 * @param open new operating status
+	 */
+	public void setOpen(boolean open) {
+		isOpen = open;
 	}
 
 	/**
@@ -93,6 +111,15 @@ public class ParkSchedule {
 	}
 
 	/**
+	 * Set hours date
+	 *
+	 * @param date new hours date
+	 */
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	/**
 	 * Get start timestamp
 	 *
 	 * @return start timestamp
@@ -102,11 +129,29 @@ public class ParkSchedule {
 	}
 
 	/**
+	 * Set start timestamp
+	 *
+	 * @param start new start timestamp
+	 */
+	public void setStart(Date start) {
+		this.start = start;
+	}
+
+	/**
 	 * Get end timestamp
 	 *
 	 * @return end timestamp
 	 */
 	public Date getEnd() {
 		return end;
+	}
+
+	/**
+	 * Set end timestamp
+	 *
+	 * @param end new end timestamp
+	 */
+	public void setEnd(Date end) {
+		this.end = end;
 	}
 }
