@@ -10,7 +10,7 @@ import java.util.Date;
  * Implements an entity class representing the daily schedule for an amusement park.
  *
  * @author Matt Aaron
- * @version 0.0.1
+ * @version 0.0.2
  */
 @Entity
 @Table(name = "park_schedules")
@@ -54,6 +54,7 @@ public class ParkSchedule {
 	 */
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
+	@Column(name = "\"end\"")
 	private Date end;
 
 	/**
