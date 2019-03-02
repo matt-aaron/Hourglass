@@ -61,8 +61,9 @@ CREATE TABLE public.park_schedules (
     id integer NOT NULL,
     park_id integer NOT NULL,
     is_open boolean DEFAULT false NOT NULL,
-    start timestamp without time zone NOT NULL,
-    "end" timestamp without time zone NOT NULL
+    date date NOT NULL,
+    start timestamp with time zone NOT NULL,
+    "end" timestamp with time zone NOT NULL
 );
 
 
@@ -99,33 +100,12 @@ CREATE TABLE public.parks (
     name character varying(50) NOT NULL,
     operator_id integer NOT NULL,
     latitude double precision NOT NULL,
-    longitude double precision
+    longitude double precision,
+    platform_id character varying(50) NOT NULL
 );
 
 
 ALTER TABLE public.parks OWNER TO api;
-
---
--- Name: parks_id_seq; Type: SEQUENCE; Schema: public; Owner: api
---
-
-CREATE SEQUENCE public.parks_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.parks_id_seq OWNER TO api;
-
---
--- Name: parks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: api
---
-
-ALTER SEQUENCE public.parks_id_seq OWNED BY public.parks.id;
-
 
 --
 -- Name: ride_statuses; Type: TABLE; Schema: public; Owner: api
@@ -137,7 +117,7 @@ CREATE TABLE public.ride_statuses (
     is_open boolean DEFAULT false NOT NULL,
     wait_time integer DEFAULT 0 NOT NULL,
     updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 
 
@@ -253,13 +233,6 @@ ALTER TABLE ONLY public.park_schedules ALTER COLUMN id SET DEFAULT nextval('publ
 
 
 --
--- Name: parks id; Type: DEFAULT; Schema: public; Owner: api
---
-
-ALTER TABLE ONLY public.parks ALTER COLUMN id SET DEFAULT nextval('public.parks_id_seq'::regclass);
-
-
---
 -- Name: ride_statuses id; Type: DEFAULT; Schema: public; Owner: api
 --
 
@@ -285,6 +258,7 @@ ALTER TABLE ONLY public.rides ALTER COLUMN id SET DEFAULT nextval('public.rides_
 --
 
 COPY public.operators (id, name) FROM stdin;
+1	Cedar Fair
 \.
 
 
@@ -292,7 +266,14 @@ COPY public.operators (id, name) FROM stdin;
 -- Data for Name: park_schedules; Type: TABLE DATA; Schema: public; Owner: api
 --
 
-COPY public.park_schedules (id, park_id, is_open, start, "end") FROM stdin;
+COPY public.park_schedules (id, park_id, is_open, date, start, "end") FROM stdin;
+10	1	f	2019-03-01	2019-03-02 05:01:00+00	2019-03-03 04:59:00+00
+11	1	f	2019-03-02	2019-03-03 05:01:00+00	2019-03-04 04:59:00+00
+12	1	f	2019-03-03	2019-03-04 05:01:00+00	2019-03-05 04:59:00+00
+13	1	f	2019-03-04	2019-03-05 05:01:00+00	2019-03-06 04:59:00+00
+14	1	f	2019-03-05	2019-03-06 05:01:00+00	2019-03-07 04:59:00+00
+15	1	f	2019-03-06	2019-03-07 05:01:00+00	2019-03-08 04:59:00+00
+16	1	f	2019-03-07	2019-03-08 05:01:00+00	2019-03-09 04:59:00+00
 \.
 
 
@@ -300,7 +281,8 @@ COPY public.park_schedules (id, park_id, is_open, start, "end") FROM stdin;
 -- Data for Name: parks; Type: TABLE DATA; Schema: public; Owner: api
 --
 
-COPY public.parks (id, name, operator_id, latitude, longitude) FROM stdin;
+COPY public.parks (id, name, operator_id, latitude, longitude, platform_id) FROM stdin;
+1	Kings Island	1	39	40	CF_KI
 \.
 
 
@@ -309,6 +291,17 @@ COPY public.parks (id, name, operator_id, latitude, longitude) FROM stdin;
 --
 
 COPY public.ride_statuses (id, ride_id, is_open, wait_time, updated_at, created_at) FROM stdin;
+15	14	f	0	2018-10-28 19:01:40.241	2019-03-02 00:35:17.459
+16	15	f	0	2018-10-28 17:45:39.621	2019-03-02 00:35:17.762
+17	16	f	0	2018-10-28 19:01:40.241	2019-03-02 00:35:18.053
+18	17	f	0	2019-01-01 00:01:06.167	2019-03-02 00:35:18.345
+19	18	f	0	2018-10-28 14:27:37.051	2019-03-02 00:35:18.645
+20	19	f	0	2019-01-01 00:01:06.167	2019-03-02 00:35:18.934
+21	20	f	0	2018-10-28 18:39:52.58	2019-03-02 00:35:19.233
+22	21	f	0	2018-11-24 19:52:49.966	2019-03-02 00:35:19.517
+23	22	f	0	2018-10-28 19:01:40.241	2019-03-02 00:35:19.815
+24	23	f	0	2018-10-28 19:01:40.241	2019-03-02 00:35:20.121
+25	24	f	0	2018-10-28 18:37:37.473	2019-03-02 00:35:20.414
 \.
 
 
@@ -317,6 +310,7 @@ COPY public.ride_statuses (id, ride_id, is_open, wait_time, updated_at, created_
 --
 
 COPY public.ride_types (id, park_id, platform_id, name) FROM stdin;
+1	1	Coasters	Coasters
 \.
 
 
@@ -325,6 +319,17 @@ COPY public.ride_types (id, park_id, platform_id, name) FROM stdin;
 --
 
 COPY public.rides (id, park_id, platform_id, ride_type_id, name) FROM stdin;
+14	1	CF_KI_144	1	Adventure Express
+15	1	CF_KI_283	1	The Bat
+16	1	CF_KI_284	1	The Beast
+17	1	CF_KI_280	1	Flight of Fear
+18	1	CF_KI_281	1	Invertigo
+19	1	CF_KI_POI16	1	Mystic Timbers
+20	1	CF_KI_286	1	Vortex
+21	1	CF_KI_145	1	Backlot Stunt Coaster
+22	1	CF_KI_277	1	Diamondback
+23	1	CF_KI_285	1	The Racer
+24	1	CF_KI_275	1	Banshee
 \.
 
 
@@ -332,42 +337,35 @@ COPY public.rides (id, park_id, platform_id, ride_type_id, name) FROM stdin;
 -- Name: operators_id_seq; Type: SEQUENCE SET; Schema: public; Owner: api
 --
 
-SELECT pg_catalog.setval('public.operators_id_seq', 1, false);
+SELECT pg_catalog.setval('public.operators_id_seq', 1, true);
 
 
 --
 -- Name: park_schedules_id_seq; Type: SEQUENCE SET; Schema: public; Owner: api
 --
 
-SELECT pg_catalog.setval('public.park_schedules_id_seq', 1, false);
-
-
---
--- Name: parks_id_seq; Type: SEQUENCE SET; Schema: public; Owner: api
---
-
-SELECT pg_catalog.setval('public.parks_id_seq', 1, false);
+SELECT pg_catalog.setval('public.park_schedules_id_seq', 16, true);
 
 
 --
 -- Name: ride_statuses_id_seq; Type: SEQUENCE SET; Schema: public; Owner: api
 --
 
-SELECT pg_catalog.setval('public.ride_statuses_id_seq', 1, false);
+SELECT pg_catalog.setval('public.ride_statuses_id_seq', 25, true);
 
 
 --
 -- Name: ride_types_id_seq; Type: SEQUENCE SET; Schema: public; Owner: api
 --
 
-SELECT pg_catalog.setval('public.ride_types_id_seq', 1, false);
+SELECT pg_catalog.setval('public.ride_types_id_seq', 1, true);
 
 
 --
 -- Name: rides_id_seq; Type: SEQUENCE SET; Schema: public; Owner: api
 --
 
-SELECT pg_catalog.setval('public.rides_id_seq', 1, false);
+SELECT pg_catalog.setval('public.rides_id_seq', 24, true);
 
 
 --
@@ -423,6 +421,20 @@ ALTER TABLE ONLY public.rides
 --
 
 CREATE UNIQUE INDEX operators_name_uindex ON public.operators USING btree (name);
+
+
+--
+-- Name: parks_platform_id_uindex; Type: INDEX; Schema: public; Owner: api
+--
+
+CREATE UNIQUE INDEX parks_platform_id_uindex ON public.parks USING btree (platform_id);
+
+
+--
+-- Name: rides_platform_id_uindex; Type: INDEX; Schema: public; Owner: api
+--
+
+CREATE UNIQUE INDEX rides_platform_id_uindex ON public.rides USING btree (platform_id);
 
 
 --
