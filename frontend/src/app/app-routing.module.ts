@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 import { ContentLayoutComponent } from './layouts/content-layout/content-layout.component';
 
-import { CONTENT_ROUTES } from  '@app/shared';
+import { CONTENT_ROUTES } from '@app/shared';
 
 const routes: Routes = [
   {
@@ -18,4 +18,5 @@ const routes: Routes = [
   exports: [RouterModule],
   providers: []
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}
