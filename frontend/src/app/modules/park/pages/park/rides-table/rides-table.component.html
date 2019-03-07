@@ -1,0 +1,31 @@
+<div class="card">
+  <!-- Header -->
+  <div class="card-header">
+    <ul class="nav nav-tabs nav-tabs-sm card-header-tabs nav-overflow">
+      <li class="nav-item">
+        <a class="nav-link active" href>Coasters</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Table -->
+  <div class="table-responsive mb-0">
+    <table class="table table-sm table-nowrap card-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Wait Time</th>
+          <th>Last Changed</th>
+        </tr>
+      </thead>
+
+      <tbody class="list">
+        <tr *ngFor="let ride of rideTypes[0].rides">
+          <td>{{ride.name}}</td>
+          <td>{{ride.status.waitTime}}</td>
+          <td>2 minutes ago</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

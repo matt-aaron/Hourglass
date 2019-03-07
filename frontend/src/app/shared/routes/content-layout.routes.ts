@@ -4,5 +4,9 @@ export const CONTENT_ROUTES: Routes = [
   {
     path: 'park',
     loadChildren: './modules/park/park.module#ParkModule'
+  },
+  {
+    path: '**',
+    loadChildren: './modules/park/park.module#ParkModule'
   }
 ]

@@ -1,3 +1,20 @@
-<p>
-  park works!
-</p>
+<app-header></app-header>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-xl-4">
+      <div class="col-xl-12 col-lg-6 float-lg-left">
+        <app-statcard title="Park Hours" heading="Closed" icon="fe-clock"></app-statcard>
+        <app-statcard title="Crowd Level" heading="&mdash;" icon="fe-users"></app-statcard>
+      </div>
+      <div class="col-xl-12 col-lg-6 float-lg-right">
+        <app-statcard title="Temperature" heading="25&deg; F" icon="fe-thermometer"></app-statcard>
+        <app-statcard title="Weather Conditions" heading="Light Snow" icon="fe-cloud-snow"></app-statcard>
+      </div>
+    </div>
+
+    <div class="col-12 col-xl-8">
+      <app-rides-table [rideTypes]="rideTypes$ | async"></app-rides-table>
+    </div>
+  </div>
+</div>

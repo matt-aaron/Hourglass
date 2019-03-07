@@ -23,7 +23,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/assets/css/theme-dark.min.css",
+              "src/assets/fonts/feather/feather.css"
             ],
             "scripts": [],
             "es5BrowserSupport": true

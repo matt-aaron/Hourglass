@@ -1,3 +1,33 @@
-<p>
-  nav works!
-</p>
+<nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light" id="sidebar">
+  <div class="container-fluid">
+    <!-- Toggler -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidebarCollapse"
+            aria-controls="sidebarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Brand -->
+    <a class="navbar-brand" href="/">
+      <img src="assets/img/logo.svg" class="navbar-brand-img mx-auto" alt="...">
+    </a>
+
+    <!-- Collapse -->
+    <div class="collapse navbar-collapse" id="sidebarCollapse">
+      <div *ngFor="let operator of operators$ | async">
+        <!-- Navigation -->
+        <h6 class="navbar-heading">
+          {{operator.name}}
+        </h6>
+        <ul class="navbar-nav">
+          <li class="nav-item" *ngFor="let park of operator.parks">
+            <a class="nav-link" [routerLink]="['/park', park.id]">
+              <i class="fe fe-map-pin"></i> {{park.name}}
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div *ngIf="!(operators$ | async)">Loading message here...</div>
+    </div>
+  </div>
+</nav>
