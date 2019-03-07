@@ -1,20 +1,56 @@
-<app-header></app-header>
+<div class="container-fluid" *ngIf="hasError()">
+  <!-- Error alert -->
+  <div class="row align-items-center my-5">
+    <div class="col-12">
+      <div class="card border-danger">
+        <div class="card-header bg-danger text-white">
+          <div class="row align-items-center">
+            <div class="col">
+              <h3 class="card-header-title">Uh-oh!</h3>
+            </div>
 
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-12 col-xl-4">
-      <div class="col-xl-12 col-lg-6 float-lg-left">
-        <app-statcard title="Park Hours" heading="Closed" icon="fe-clock"></app-statcard>
-        <app-statcard title="Crowd Level" heading="&mdash;" icon="fe-users"></app-statcard>
-      </div>
-      <div class="col-xl-12 col-lg-6 float-lg-right">
-        <app-statcard title="Temperature" heading="25&deg; F" icon="fe-thermometer"></app-statcard>
-        <app-statcard title="Weather Conditions" heading="Light Snow" icon="fe-cloud-snow"></app-statcard>
+            <div class="col-auto mr-2">
+              <span class="h2 fe fe-alert-triangle mb-0"></span>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-text">It looks like something went wrong. Please try again.</p>
+        </div>
       </div>
     </div>
+  </div>
+</div>
 
-    <div class="col-12 col-xl-8">
-      <app-rides-table [rideTypes]="rideTypes$ | async"></app-rides-table>
+<div *ngIf="!hasError() && isLoading()" class="main-content d-flex align-items-center vh-100">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!hasError() && !isLoading()">
+  <app-header></app-header>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12 col-xl-4">
+        <div class="col-xl-12 col-lg-6 float-lg-left p-0">
+          <app-statcard title="Park Hours" heading="Closed" icon="fe-clock"></app-statcard>
+          <app-statcard title="Crowd Level" heading="&mdash;" icon="fe-users"></app-statcard>
+        </div>
+        <div class="col-xl-12 col-lg-6 float-lg-right p-0">
+          <app-statcard title="Temperature" heading="25&deg; F" icon="fe-thermometer"></app-statcard>
+          <app-statcard title="Weather Conditions" heading="Light Snow" icon="fe-cloud-snow"></app-statcard>
+        </div>
+      </div>
+
+      <div class="col-12 col-xl-8">
+        <app-rides-table [rideTypes]="rideTypes$ | async"></app-rides-table>
+      </div>
     </div>
   </div>
 </div>
