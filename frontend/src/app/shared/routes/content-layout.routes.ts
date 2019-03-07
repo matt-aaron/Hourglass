@@ -7,6 +7,7 @@ export const CONTENT_ROUTES: Routes = [
   },
   {
     path: '**',
-    loadChildren: './modules/park/park.module#ParkModule'
+    redirectTo: '/park',
+    pathMatch: 'full'
   }
 ]
