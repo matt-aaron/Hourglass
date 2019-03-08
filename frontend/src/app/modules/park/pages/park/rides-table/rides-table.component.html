@@ -23,7 +23,7 @@
       <tbody class="list" *ngIf="rideTypes">
         <tr *ngFor="let ride of getActiveRideType().rides">
           <td>{{ride.name}}</td>
-          <td>{{ride.status.waitTime}}</td>
+          <td [innerHTML]="getFormattedWaitTime(ride)"></td>
           <td>2 minutes ago</td>
         </tr>
       </tbody>
