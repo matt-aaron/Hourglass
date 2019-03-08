@@ -2,8 +2,9 @@
   <!-- Header -->
   <div class="card-header">
     <ul class="nav nav-tabs nav-tabs-sm card-header-tabs nav-overflow">
-      <li class="nav-item">
-        <a class="nav-link active" href>Coasters</a>
+      <li class="nav-item" *ngFor="let rideType of rideTypes">
+        <a class="nav-link" [ngClass]="{active: isActiveRideType(rideType)}"
+           (click)="setActiveRideType(rideType)" href="javascript:;">{{rideType.name}}</a>
       </li>
     </ul>
   </div>
@@ -19,8 +20,8 @@
         </tr>
       </thead>
 
-      <tbody class="list">
-        <tr *ngFor="let ride of rideTypes[0].rides">
+      <tbody class="list" *ngIf="rideTypes">
+        <tr *ngFor="let ride of getActiveRideType().rides">
           <td>{{ride.name}}</td>
           <td>{{ride.status.waitTime}}</td>
           <td>2 minutes ago</td>
