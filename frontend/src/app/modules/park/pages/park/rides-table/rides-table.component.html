@@ -4,7 +4,7 @@
     <ul class="nav nav-tabs nav-tabs-sm card-header-tabs nav-overflow">
       <li class="nav-item" *ngFor="let rideType of rideTypes">
         <a class="nav-link" [ngClass]="{active: isActiveRideType(rideType)}"
-           (click)="setActiveRideType(rideType)" href="javascript:;">{{rideType.name}}</a>
+           (click)="setActiveRideType(rideType)" href="javascript:">{{rideType.name}}</a>
       </li>
     </ul>
   </div>
