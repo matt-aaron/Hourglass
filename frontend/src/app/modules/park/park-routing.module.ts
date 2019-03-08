@@ -4,13 +4,13 @@ import { ParkComponent } from '@app/modules/park/pages/park/park.component';
 
 const routes: Routes = [
   {
+    path: ':id',
+    component: ParkComponent
+  },
+
+  {
     path: '',
-    children: [
-      {
-        path: ':id',
-        component: ParkComponent,
-      }
-    ]
+    component: ParkComponent
   }
 ];
 

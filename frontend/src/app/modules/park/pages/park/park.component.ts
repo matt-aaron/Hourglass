@@ -28,7 +28,7 @@ export class ParkComponent implements OnInit, OnDestroy {
     // Make sure the error card is hidden initially
     this.error = false;
 
-    this.routeSubscription = this.route.firstChild.params.subscribe(params => {
+    this.routeSubscription = this.route.params.subscribe(params => {
       // Set the park pointer to null
       this.park = null;
 
