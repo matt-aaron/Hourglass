@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Observable, Subscription } from 'rxjs';
-import { Operator, OperatorService, Park, RideType, RideTypeService } from '@app/core';
+import { forkJoin, Observable, Subscription } from 'rxjs';
+import { Forecast, Operator, OperatorService, Park, RideType, RideTypeService, WeatherService } from '@app/core';
 
 @Component({
   selector: 'app-park',
@@ -14,12 +14,14 @@ export class ParkComponent implements OnInit, OnDestroy {
 
   private routeSubscription: Subscription;
   private park: Park;
+  private forecast: Forecast;
   private error: boolean;
   private loading: boolean;
 
   constructor(
     private operatorService: OperatorService,
     private rideTypeService: RideTypeService,
+    private weatherService: WeatherService,
     private route: ActivatedRoute,
     private router: Router
   ) { }
@@ -74,10 +76,17 @@ export class ParkComponent implements OnInit, OnDestroy {
 
           // Fetch the ride types for this park
           this.rideTypes$ = this.rideTypeService.getByPark(this.park.id);
-          this.rideTypes$.subscribe(rtResponse => {
-            // Hide the loading indicator
-            this.loading = false;
-          });
+
+          // Fetch the weather for this park
+          const weather = this.weatherService.getByPark(this.park);
+
+          forkJoin([this.rideTypes$, weather])
+            .subscribe(responses => {
+              this.forecast = responses[1];
+
+              // Hide the loading indicator
+              this.loading = false;
+            });
         });
     });
   }
@@ -92,5 +101,33 @@ export class ParkComponent implements OnInit, OnDestroy {
 
   isLoading(): boolean {
     return this.loading;
+  }
+
+  getFormattedTemperature(): string {
+    return `${Math.round(this.forecast.currently.temperature)}&deg; F`;
+  }
+
+  getConditionsSummary(): string {
+    return this.forecast.currently.summary;
+  }
+
+  getConditionsIcon(): string {
+    const weatherIcons = {
+      'clear-day': 'fe-sun',
+      'clear-night': 'fe-moon',
+      'rain': 'fe-cloud-rain',
+      'snow': 'fe-cloud-snow',
+      'sleet': 'fe-cloud-drizzle',
+      'wind': 'fe-wind',
+      'fog': 'fe-cloud',
+      'cloudy': 'fe-cloud',
+      'partly-cloudy-day': 'fe-cloud',
+      'partly-cloudy-night': 'fe-cloud',
+      'hail': 'fe-cloud-drizzle',
+      'thunderstorm': 'fe-cloud-lighting',
+      'tornado': 'fe-cloud-wind'
+    };
+
+    return weatherIcons[this.forecast.currently.icon];
   }
 }

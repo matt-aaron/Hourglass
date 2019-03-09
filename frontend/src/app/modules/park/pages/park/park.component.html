@@ -43,8 +43,9 @@
           <app-statcard title="Crowd Level" heading="&mdash;" icon="fe-users"></app-statcard>
         </div>
         <div class="col-xl-12 col-lg-6 float-lg-right p-0">
-          <app-statcard title="Temperature" heading="25&deg; F" icon="fe-thermometer"></app-statcard>
-          <app-statcard title="Weather Conditions" heading="Light Snow" icon="fe-cloud-snow"></app-statcard>
+          <app-statcard title="Temperature" [heading]="getFormattedTemperature()" icon="fe-thermometer"></app-statcard>
+          <app-statcard title="Weather Conditions" [heading]="getConditionsSummary()"
+                        [icon]="getConditionsIcon()"></app-statcard>
         </div>
       </div>
 
