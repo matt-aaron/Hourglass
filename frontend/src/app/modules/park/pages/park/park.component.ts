@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { forkJoin, Observable, Subscription } from 'rxjs';
-import { Forecast, Operator, OperatorService, Park, RideType, RideTypeService, WeatherService } from '@app/core';
+import { Forecast, Hours, HoursService, Operator, OperatorService, Park, RideType, RideTypeService, WeatherService } from '@app/core';
 
 @Component({
   selector: 'app-park',
@@ -17,6 +17,7 @@ export class ParkComponent implements OnInit, OnDestroy {
   private operator: Operator;
   private park: Park;
   private forecast: Forecast;
+  private hours: Hours;
 
   private error: boolean;
   private loading: boolean;
@@ -25,6 +26,7 @@ export class ParkComponent implements OnInit, OnDestroy {
     private operatorService: OperatorService,
     private rideTypeService: RideTypeService,
     private weatherService: WeatherService,
+    private hoursService: HoursService,
     private route: ActivatedRoute,
     private router: Router
   ) { }
@@ -85,9 +87,13 @@ export class ParkComponent implements OnInit, OnDestroy {
           // Fetch the weather for this park
           const weather = this.weatherService.getByPark(this.park);
 
-          forkJoin([this.rideTypes$, weather])
+          // Fetch hours for this park
+          const hours = this.hoursService.getByPark(this.park);
+
+          forkJoin([this.rideTypes$, weather, hours])
             .subscribe(responses => {
               this.forecast = responses[1];
+              this.hours = responses[2];
 
               // Hide the loading indicator
               this.loading = false;
@@ -117,7 +123,6 @@ export class ParkComponent implements OnInit, OnDestroy {
   }
 
   getFormattedTemperature(): string {
-    return `${Math.round(this.forecast.currently.temperature)}&deg; F`;
     return `${Math.round(this.forecast.currently.temperature)}\u00B0 F`;
   }
 
@@ -143,5 +148,13 @@ export class ParkComponent implements OnInit, OnDestroy {
     };
 
     return weatherIcons[this.forecast.currently.icon];
+  }
+
+  getFormattedHours(): string {
+    if (!this.hours.open) {
+      return 'Closed';
+    }
+
+    return '';
   }
 }
