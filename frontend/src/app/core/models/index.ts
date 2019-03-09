@@ -1,3 +1,5 @@
+export * from './dark-sky';
+
 export * from './location.model';
 export * from './operator.model';
 export * from './park.model';
