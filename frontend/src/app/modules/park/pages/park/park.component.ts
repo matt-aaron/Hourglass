@@ -118,6 +118,7 @@ export class ParkComponent implements OnInit, OnDestroy {
 
   getFormattedTemperature(): string {
     return `${Math.round(this.forecast.currently.temperature)}&deg; F`;
+    return `${Math.round(this.forecast.currently.temperature)}\u00B0 F`;
   }
 
   getConditionsSummary(): string {
