@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { ApiService, Forecast, Park } from '@app/core';
+import { ApiService } from '@app/core/services/api.service';
+import { Forecast, Park } from '@app/core/models';
 
 const routes = {
   forecast: (latitude: number, longitude: number) => `/weather/${latitude},${longitude}?exclude=minutely,hourly,daily,alerts,flags`
