@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { ApiService } from './api.service';
-import { Operator } from '../models/operator.model';
+import { ApiService, Operator } from '@app/core';
 
 const routes = {
   operators: '/operators'

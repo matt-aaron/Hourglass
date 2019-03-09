@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { ApiService } from './api.service';
-import { RideType } from '../models/ride-type.model';
+import { ApiService, RideType } from '@app/core';
 
 const routes = {
   rideTypes: (id: number) => `/park/${id}/rides`
