@@ -33,7 +33,7 @@
 </div>
 
 <div *ngIf="!hasError() && !isLoading()">
-  <app-header></app-header>
+  <app-header [pretitle]="getOperatorName()" [title]="getParkName()"></app-header>
 
   <div class="container-fluid">
     <div class="row">

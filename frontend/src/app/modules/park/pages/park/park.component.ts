@@ -13,8 +13,11 @@ export class ParkComponent implements OnInit, OnDestroy {
   rideTypes$: Observable<RideType[]>;
 
   private routeSubscription: Subscription;
+
+  private operator: Operator;
   private park: Park;
   private forecast: Forecast;
+
   private error: boolean;
   private loading: boolean;
 
@@ -48,6 +51,7 @@ export class ParkComponent implements OnInit, OnDestroy {
                 if (park.id === +params.id) {
                   // Matching park ID fount
                   // Set the park pointer to this park
+                  this.operator = operator;
                   this.park = park;
 
                   // Make sure the error card is hidden
@@ -59,11 +63,12 @@ export class ParkComponent implements OnInit, OnDestroy {
             // No park ID was specified, so we'll go ahead and route them to the first park in the API response
             console.log('park not found');
             this.router.navigate(['/park', response[0].parks[0].id]);
+            this.operator = response[0];
             this.park = response[0].parks[0];
           }
 
-          // If the park ID wasn't found, let the user know there was an error
-          if (this.park == null) {
+          // If the park ID or operator wasn't found, let the user know there was an error
+          if (this.park == null || this.operator == null) {
             // Display the error card
             this.error = true;
 
@@ -101,6 +106,14 @@ export class ParkComponent implements OnInit, OnDestroy {
 
   isLoading(): boolean {
     return this.loading;
+  }
+
+  getOperatorName(): string {
+    return this.operator.name;
+  }
+
+  getParkName(): string {
+    return this.park.name;
   }
 
   getFormattedTemperature(): string {
