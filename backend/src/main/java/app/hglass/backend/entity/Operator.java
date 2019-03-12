@@ -29,6 +29,7 @@ public class Operator {
 	 * Operator one-to-many relationship witn parks
 	 */
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "operator")
+	@OrderBy("id ASC")
 	private List<Park> parks;
 
 	/**
