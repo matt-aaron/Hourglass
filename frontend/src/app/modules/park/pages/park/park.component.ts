@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 import { forkJoin, Observable, Subscription } from 'rxjs';
 import { Forecast, Hours, HoursService, Operator, OperatorService, Park, RideType, RideTypeService, WeatherService } from '@app/core';
@@ -7,7 +8,8 @@ import { Forecast, Hours, HoursService, Operator, OperatorService, Park, RideTyp
 @Component({
   selector: 'app-park',
   templateUrl: './park.component.html',
-  styleUrls: ['./park.component.css']
+  styleUrls: ['./park.component.css'],
+  providers: [DatePipe]
 })
 export class ParkComponent implements OnInit, OnDestroy {
   rideTypes$: Observable<RideType[]>;
@@ -28,7 +30,8 @@ export class ParkComponent implements OnInit, OnDestroy {
     private weatherService: WeatherService,
     private hoursService: HoursService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private datePipe: DatePipe
   ) { }
 
   ngOnInit(): void {
@@ -155,6 +158,6 @@ export class ParkComponent implements OnInit, OnDestroy {
       return 'Closed';
     }
 
-    return '';
+    return this.datePipe.transform(this.hours.start, 'h:mm a') + ' \u2013 ' + this.datePipe.transform(this.hours.end, 'h:mm a');
   }
 }
