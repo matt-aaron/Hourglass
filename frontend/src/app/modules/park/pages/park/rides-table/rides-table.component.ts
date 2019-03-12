@@ -16,18 +16,6 @@ export class RidesTableComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.rideTypes && this.rideTypes !== null) {
-      // Sort the rides by name
-      this.rideTypes.forEach((rideType: RideType) => {
-        rideType.rides.sort((a, b) => {
-          if (a.name < b.name) {
-            return -1;
-          } else if (a.name > b.name) {
-            return 1;
-          } else {
-            return 0;
-          }
-        });
-      });
       this.activeRideType = this.rideTypes[0];
     }
   }
